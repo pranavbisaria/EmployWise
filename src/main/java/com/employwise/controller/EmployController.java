@@ -25,11 +25,11 @@ public class EmployController {
         Employ manager = null;
         if(employRequest.getManagerId() != null && !employRequest.getManagerId().isBlank()) {
             ManagerAndPathDTO managerAndPathDTO = this.employService.getManagerPath(employRequest.getManagerId());
-            managerPath = managerAndPathDTO.getManagerPath();
-            manager = managerAndPathDTO.getManager();
-            if (managerPath == null) {
+            if (managerAndPathDTO == null) {
                 throw new ResourceNotFoundException("Manager", "id", employRequest.getManagerId());
             }
+            managerPath = managerAndPathDTO.getManagerPath();
+            manager = managerAndPathDTO.getManager();
         }
 
         return new ResponseEntity<>(this.employService.createEmploy(employRequest, managerPath, manager), HttpStatus.OK);
@@ -46,11 +46,11 @@ public class EmployController {
         Employ manager = null;
         if(employRequest.getManagerId() != null && !employRequest.getManagerId().isBlank()) {
             ManagerAndPathDTO managerAndPathDTO = this.employService.getManagerPath(employRequest.getManagerId());
-            managerPath = managerAndPathDTO.getManagerPath();
-            manager = managerAndPathDTO.getManager();
-            if (managerPath == null) {
+            if (managerAndPathDTO == null) {
                 throw new ResourceNotFoundException("Manager", "id", employRequest.getManagerId());
             }
+            managerPath = managerAndPathDTO.getManagerPath();
+            manager = managerAndPathDTO.getManager();
         }
 
         return new ResponseEntity<>(this.employService.updateEmploy(employRequest, employ, managerPath, manager), HttpStatus.OK);
