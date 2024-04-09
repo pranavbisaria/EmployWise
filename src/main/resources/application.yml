@@ -9,5 +9,5 @@ bucket:
 mail:
   smtp: smtp.gmail.com
   port: 465
-  email: ${MAIL_USERNAME:pranavbisaria0@gmail.com}
-  password: ${MAIL_PASSWORD:edoknzpbqpasguxe}
+  email: ${MAIL_USERNAME}
+  password: ${MAIL_PASSWORD}
