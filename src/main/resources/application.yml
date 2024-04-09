@@ -1,0 +1,13 @@
+database:
+  host: 65.0.102.29
+bucket:
+  name: pranavDB
+  user: pranav
+  password: Pranav@123
+
+#Email
+mail:
+  smtp: smtp.gmail.com
+  port: 465
+  email: ${MAIL_USERNAME:pranavbisaria0@gmail.com}
+  password: ${MAIL_PASSWORD:edoknzpbqpasguxe}

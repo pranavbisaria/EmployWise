@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -56,12 +57,24 @@ public class EmployServiceImpl implements EmployService {
     ) {
         boolean notify = !Objects.equals(managerPath, employ.getManagerRelPath());
 
+        // Update all the employees under the current employee
+        String managerPathToBeUpdated = employ.getId();
+        if (employ.getManagerRelPath() != null) managerPathToBeUpdated += "/" + employ.getManagerRelPath();
+        List<Employ> employList = this.employRepository.findByManagerRelPath(managerPathToBeUpdated);
+
+        String newManagerPath = employ.getId();
+        if (managerPath != null) newManagerPath += "/" + managerPath;
+
+        final String finalNewManagerPath = newManagerPath;
+        employList.forEach(e -> e.setManagerRelPath(finalNewManagerPath));
+        this.employRepository.saveAll(employList);
+
         employ.setName(request.getName());
         employ.setEmail(request.getEmail());
         employ.setPhoneNumber(request.getPhoneNumber());
         employ.setProfileImage(request.getProfileImage());
         employ.setManagerRelPath(managerPath);
-        Employ response = employRepository.save(employ);
+        Employ response = this.employRepository.save(employ);
 
         if (notify && managerPath!=null)
             this.notifyService.notifyManager(
